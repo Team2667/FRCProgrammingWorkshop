@@ -10,6 +10,7 @@ package honeycrisp.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public abstract class HCDriveTrain extends HCSubsystem{
     private DifferentialDrive diffDrive;
     private AnalogInput distanceSensor;
+    private ADXRS450_Gyro gyro;
 
     public HCDriveTrain(WPI_TalonSRX leftFront,  WPI_TalonSRX rightFront,  WPI_TalonSRX leftRear,  WPI_TalonSRX rightRear){
         SpeedControllerGroup leftSideControllerGroup = new SpeedControllerGroup(leftFront, leftRear);
@@ -35,6 +37,14 @@ public abstract class HCDriveTrain extends HCSubsystem{
        diffDrive.tankDrive(power, power);
     }
 
+    public void turnCounterClockwise(double power){
+        diffDrive.tankDrive(0,power);
+    }
+
+    public void turnClockwise(double power){
+        diffDrive.tankDrive(power,0);
+    }
+
     public void stop(){
         diffDrive.stopMotor();
     }
@@ -49,5 +59,14 @@ public abstract class HCDriveTrain extends HCSubsystem{
     public void setDistanceSensor(AnalogInput distanceSensor){
         System.out.println("setDistanceSensor is getting called " + distanceSensor);
         this.distanceSensor = distanceSensor;
+    }
+
+    public void setGyro(ADXRS450_Gyro gyro){
+        this.gyro = gyro;
+        this.gyro.calibrate();
+    }
+
+    public double getAngle(){
+        return gyro.getAngle();
     }
 }

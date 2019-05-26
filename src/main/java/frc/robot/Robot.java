@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.DriveTrainBuilder;
-import honeycrisp.HCGameController;
+import frc.robot.subsystems.GroupCommands;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
 
   private DriveTrain driveTrain;
+  private GroupCommands groupCommands;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -39,12 +40,12 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_oi = new OI();
     // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
-    HCGameController gc = new HCGameController();
 
     driveTrain = new DriveTrainBuilder().addLfSpeedControler(1).addRfSpeedControler(2).
-    addLrSpeedControler(3).addRfSpeedControler(4).addDistanceSensor(3).build();
-    driveTrain.addCommands(gc);
+    addLrSpeedControler(3).addRfSpeedControler(4).addDistanceSensor(3).addGyro().build();
+    groupCommands = new GroupCommands();
+    driveTrain.addCommands(m_oi);
+    groupCommands.addCommands(m_oi);
   }
 
   /**

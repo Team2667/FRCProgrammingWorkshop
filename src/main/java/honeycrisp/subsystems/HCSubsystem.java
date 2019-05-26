@@ -8,7 +8,7 @@
 package honeycrisp.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import honeycrisp.HCGameController;
+import honeycrisp.CommandButtons;
 
 /**
  * Add your docs here.
@@ -17,7 +17,7 @@ public abstract class HCSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
- public abstract void addCommands(HCGameController gameControler);
+ public abstract void addCommands(CommandButtons commandButtons);
 
   @Override
   public void initDefaultCommand() {

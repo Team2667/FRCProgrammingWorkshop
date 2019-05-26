@@ -3,6 +3,7 @@ package honeycrisp.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 
 public abstract class HCDriveTrainBuilder<T extends HCDriveTrain> {
     private WPI_TalonSRX lfTalon;
@@ -10,6 +11,7 @@ public abstract class HCDriveTrainBuilder<T extends HCDriveTrain> {
     private WPI_TalonSRX lrTalon;
     private WPI_TalonSRX rrTalon;
     private AnalogInput distanceSensor;
+    private ADXRS450_Gyro gyro;
 
     public HCDriveTrainBuilder(){
     }
@@ -36,6 +38,11 @@ public abstract class HCDriveTrainBuilder<T extends HCDriveTrain> {
 
     public HCDriveTrainBuilder<T> addDistanceSensor(int id){
         distanceSensor = new AnalogInput(id);
+        return this;
+    }
+
+    public HCDriveTrainBuilder<T> addGyro(){
+        gyro = new ADXRS450_Gyro();
         return this;
     }
 

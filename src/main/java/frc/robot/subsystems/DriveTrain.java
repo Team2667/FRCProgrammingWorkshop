@@ -9,7 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.commands.DistanceSensorStop;
-import honeycrisp.HCGameController;
+import honeycrisp.CommandButtons;
 import honeycrisp.subsystems.HCDriveTrain;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -30,9 +30,9 @@ public class DriveTrain extends HCDriveTrain {
   }
 
    @Override
-  public void addCommands(HCGameController gameController) {
+  public void addCommands(CommandButtons gameController) {
     DistanceSensorStop dstop = new DistanceSensorStop(this);
-    gameController.addCommand(dstop, 1);
+    gameController.addCommand(dstop, "DistanceSensorStop", 1);
   }
 
 

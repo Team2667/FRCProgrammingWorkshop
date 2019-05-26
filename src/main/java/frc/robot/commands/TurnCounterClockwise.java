@@ -16,32 +16,30 @@ public class TurnCounterClockwise extends Command{
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    driveTrain.turnCounterClockwise(.25);
+  
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    driveTrain.turnCounterClockwise(.25);
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    double angle = driveTrain.getAngle();
-    return angle % 360 < -45;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    driveTrain.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
+   
   }
 }

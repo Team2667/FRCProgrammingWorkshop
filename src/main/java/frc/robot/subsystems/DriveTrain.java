@@ -9,6 +9,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.commands.DistanceSensorStop;
+import frc.robot.commands.MoveForMilliSeconds;
+import frc.robot.commands.TurnCounterClockwise;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import honeycrisp.CommandButtons;
 import honeycrisp.subsystems.HCDriveTrain;
 
@@ -31,8 +34,12 @@ public class DriveTrain extends HCDriveTrain {
 
    @Override
   public void addCommands(CommandButtons gameController) {
-    DistanceSensorStop dstop = new DistanceSensorStop(this);
-    gameController.addCommand(dstop, "DistanceSensorStop", 1);
+    DistanceSensorStop dstop = new DistanceSensorStop(this,20);
+    SmartDashboard.putData("Distance Sensor Stop",dstop);
+    TurnCounterClockwise turnCounter = new TurnCounterClockwise(this, 45.0);
+    SmartDashboard.putData("Turn Counter Clockwise", turnCounter);
+    MoveForMilliSeconds moveForTime = new MoveForMilliSeconds(this, 5000);
+    SmartDashboard.putData("Move for Milli Seconds", moveForTime);
   }
 
 

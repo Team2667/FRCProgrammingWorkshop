@@ -13,7 +13,7 @@ import honeycrisp.subsystems.HCDriveTrain;
 public class DistanceSensorStop extends Command {
   private HCDriveTrain driveTrain;
 
-  public DistanceSensorStop(HCDriveTrain driveTrain) {
+  public DistanceSensorStop(HCDriveTrain driveTrain, int distanceInInches) {
     this.driveTrain = driveTrain;
     this.requires(driveTrain);
   }

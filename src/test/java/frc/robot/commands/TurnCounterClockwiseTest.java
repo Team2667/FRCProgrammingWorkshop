@@ -56,7 +56,7 @@ public class TurnCounterClockwiseTest {
         
         DriveTrain driveTrain = new DriveTrain(ls, rs);
         driveTrain.setGyro(gyro);;
-        TurnCounterClockwise turnCounter = new TurnCounterClockwise(driveTrain);
+        TurnCounterClockwise turnCounter = new TurnCounterClockwise(driveTrain, 45.0);
         turnCounter.initialize();
         for (int i = 0; i != 4; ++i){
             turnCounter.execute();
@@ -91,7 +91,7 @@ public class TurnCounterClockwiseTest {
         when (gyro.getAngle()).thenReturn(0.0).thenReturn(-20.999).thenReturn(-30.0).thenReturn(-40.0).thenReturn(-48.0);
         dt = new DriveTrain(leftSide, rightSide);
         dt.setGyro(gyro);
-        turn = new TurnCounterClockwise(dt);
+        turn = new TurnCounterClockwise(dt, 45.0);
     }
 
 

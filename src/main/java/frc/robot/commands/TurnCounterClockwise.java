@@ -5,8 +5,9 @@ import honeycrisp.subsystems.HCDriveTrain;
 
 public class TurnCounterClockwise extends Command{
     private HCDriveTrain driveTrain;
+    private double angle;
 
-  public TurnCounterClockwise(HCDriveTrain driveTrain) {
+  public TurnCounterClockwise(HCDriveTrain driveTrain, double angle) {
     this.driveTrain = driveTrain;
     this.requires(driveTrain);
     // Use requires() here to declare subsystem dependencies

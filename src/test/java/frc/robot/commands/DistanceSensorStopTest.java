@@ -37,7 +37,7 @@ public class DistanceSensorStopTest {
 
         dt = new DriveTrain(leftSide, rightSide);
         dt.setDistanceSensor(sensor);
-        dss = new DistanceSensorStop(dt);
+        dss = new DistanceSensorStop(dt, 20);
     }
 
     @Test

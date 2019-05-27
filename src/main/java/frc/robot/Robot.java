@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -15,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.DriveTrainBuilder;
 import frc.robot.subsystems.GroupCommands;
+import honeycrisp.subsystems.HCSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,8 +30,7 @@ import frc.robot.subsystems.GroupCommands;
 public class Robot extends TimedRobot {
   public static OI m_oi;
 
-  private DriveTrain driveTrain;
-  private GroupCommands groupCommands;
+  private List<HCSubsystem> subsystems;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -39,13 +42,13 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
+    subsystems = new ArrayList<HCSubsystem>();
+
     // chooser.addOption("My Auto", new MyAutoCommand());
 
-    driveTrain = new DriveTrainBuilder().addLfSpeedControler(1).addRfSpeedControler(2).
-    addLrSpeedControler(3).addRfSpeedControler(4).addDistanceSensor(3).addGyro().build();
-    groupCommands = new GroupCommands();
-    driveTrain.addCommands(m_oi);
-    groupCommands.addCommands(m_oi);
+    subsystems.add(createDriveTrainSubsystem());
+    subsystems.add(createGroupCommandsSubsystem());
+    subsystems.forEach(sub -> sub.addCommands(m_oi));
   }
 
   /**
@@ -58,6 +61,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    subsystems.forEach(sub -> sub.updateSmartDashboardValues());
   }
 
   /**
@@ -134,5 +138,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+
+  private HCSubsystem createDriveTrainSubsystem(){
+    DriveTrain driveTrain = new DriveTrainBuilder().addLfSpeedControler(1).addRfSpeedControler(2).
+      addLrSpeedControler(3).addRfSpeedControler(4).addDistanceSensor(3).addGyro().build();
+    driveTrain.addCommands(m_oi);
+    return driveTrain;
+  }
+
+  private HCSubsystem createGroupCommandsSubsystem(){
+    return new GroupCommands();
   }
 }

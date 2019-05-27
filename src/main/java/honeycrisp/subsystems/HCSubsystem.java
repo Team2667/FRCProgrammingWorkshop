@@ -19,6 +19,8 @@ public abstract class HCSubsystem extends Subsystem {
 
  public abstract void addCommands(CommandButtons commandButtons);
 
+ public abstract void updateSmartDashboardValues();
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

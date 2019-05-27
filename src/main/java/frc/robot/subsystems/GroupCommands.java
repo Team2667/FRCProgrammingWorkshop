@@ -7,4 +7,9 @@ public class GroupCommands extends HCSubsystem{
     public void addCommands(CommandButtons commandButtons){
        
     }
+
+    @Override
+    public void updateSmartDashboardValues(){
+        
+    }
 }

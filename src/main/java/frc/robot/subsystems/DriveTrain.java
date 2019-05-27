@@ -42,6 +42,12 @@ public class DriveTrain extends HCDriveTrain {
     SmartDashboard.putData("Move for Milli Seconds", moveForTime);
   }
 
+  @Override
+  public void updateSmartDashboardValues() {
+    SmartDashboard.putNumber("Distance Sensor", getDistanceInInches());
+    SmartDashboard.putNumber("Gyro Angle", getAngle());
+  }
+
 
   @Override
   public void initDefaultCommand() {

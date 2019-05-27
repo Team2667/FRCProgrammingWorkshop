@@ -23,7 +23,22 @@ public class TurnCounterClockwiseTest {
     private SpeedControllerGroup rightSide;
     
     @Test
-    public void isTrueWhenGyroReturnsGreaterThan45(){
+    public void initializeStartsTheRobotTurning(){
+        turn.initialize();
+        verify(leftSide,times(1)).set(0);
+        verify(rightSide,times(1)).set(anyDouble());
+    }
+
+    @Test
+    public void executeAdjustsTheRobot(){
+        turn.initialize();
+        turn.execute();
+        verify(leftSide,times(2)).set(0);
+        verify(rightSide,times(2)).set(anyDouble());
+    }
+
+    @Test
+    public void isFinishedWhenGyroReturnsGreaterThan45(){
         turn.initialize();
         for (int i = 0; i != 4; ++i){
             turn.execute();
@@ -33,15 +48,7 @@ public class TurnCounterClockwiseTest {
     }
 
     @Test
-    public void isRightSideRobotMoving(){
-        turn.initialize();
-        turn.execute();
-        verify(leftSide,times(2)).set(0);
-        verify(rightSide,times(2)).set(anyDouble());
-    }
-
-    @Test
-    public void doesHandleGT360(){
+    public void isFinishedHandlesGT360(){
         SpeedControllerGroup ls = mock(SpeedControllerGroup.class);
         SpeedControllerGroup rs = mock(SpeedControllerGroup.class);
         ADXRS450_Gyro gyro = mock(ADXRS450_Gyro.class);
@@ -57,6 +64,23 @@ public class TurnCounterClockwiseTest {
         }
         turnCounter.close();
         assertTrue(turnCounter.isFinished());
+    }
+
+    @Test
+    public void motorStopedWhenEndIsCalled(){
+        turn.initialize();
+        turn.end();
+        verify(leftSide,times(1)).stopMotor();
+        verify(rightSide,times(1)).stopMotor();
+    }
+
+    @Test
+    public void motorStopedWhenInterruptedIsCalled(){
+        turn.initialize();
+        turn.execute();
+        turn.interrupted();
+        verify(leftSide,times(1)).stopMotor();
+        verify(rightSide,times(1)).stopMotor();
     }
 
     @Before

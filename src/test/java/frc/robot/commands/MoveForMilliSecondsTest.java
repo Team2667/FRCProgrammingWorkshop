@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.command.Command;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
@@ -20,11 +21,12 @@ import static org.junit.Assert.*;
 /**
  * Add your docs here.
  */
-public class DistanceSensorStopTest {
+public class MoveForMilliSecondsTest {
     private DriveTrain dt;
-    private DistanceSensorStop dss;
+    private MoveForMilliSeconds mfms;
     private SpeedControllerGroup leftSide;
     private SpeedControllerGroup rightSide;
+    private static int duration = 100;
 
     @Before
     public void setUp(){
@@ -37,55 +39,52 @@ public class DistanceSensorStopTest {
 
         dt = new DriveTrain(leftSide, rightSide);
         dt.setDistanceSensor(sensor);
-        dss = new DistanceSensorStop(dt);
+        mfms = new MoveForMilliSeconds(dt,duration);
     }
 
     @Test
     public void doesStartWhenInitialized(){
-        verify(leftSide,times(0)).set(anyDouble());
-        verify(rightSide,times(0)).set(anyDouble());
-        dss.initialize();
+        mfms.initialize();
         verify(leftSide,times(1)).set(anyDouble());
         verify(rightSide,times(1)).set(anyDouble());
+        verify(leftSide,times(0)).stopMotor();
+        verify(leftSide,times(0)).stopMotor();
     }
 
     @Test
-    public void executeAdjustsTheSpeed(){
-        dss.initialize();
-        verify(leftSide,times(1)).set(anyDouble());
-        verify(rightSide,times(1)).set(anyDouble());
-        dss.execute();
+    public void executeSetsSpeed(){
+        mfms.initialize();
+        mfms.execute();
         verify(leftSide,times(2)).set(anyDouble());
         verify(rightSide,times(2)).set(anyDouble());
+        verify(leftSide,times(0)).stopMotor();
+        verify(leftSide,times(0)).stopMotor();
     }
 
     @Test
-    public void isFinishedReturnedWhen20InchesAway(){
-        dss.initialize();
-        for (int i = 0; i < 2; ++i){
-            dss.execute();
-            assertFalse(dss.isFinished());
+    public void isFinishedReturnsTrueAfterTime(){
+        mfms.initialize();
+        assertFalse(mfms.isFinished());
+        try{
+            Thread.sleep(duration + 1);
+        } catch(InterruptedException exp){
         }
-        dss.execute();
-        assertTrue(dss.isFinished());
+        assertTrue(mfms.isFinished());
     }
-
     
     @Test
     public void motorIsStopedWhenEndIsCalled(){
-        dss.initialize();
-        verify(leftSide,times(1)).set(anyDouble());
-        verify(rightSide,times(1)).set(anyDouble());
-        dss.end();
+        mfms.initialize();
+        mfms.end();
         verify(leftSide,times(1)).stopMotor();
         verify(rightSide,times(1)).stopMotor();
     }
 
     @Test
-    public void motorIsStopedWhenInterruptedCalled(){
-        dss.initialize();
-        verify(leftSide,times(1)).set(anyDouble());
-        dss.interrupted();
+    public void motorIsStoppedWhenInturrptedIsCalled(){
+        mfms.initialize();
+        mfms.interrupted();
         verify(leftSide,times(1)).stopMotor();
+        verify(rightSide,times(1)).stopMotor();
     }
 }

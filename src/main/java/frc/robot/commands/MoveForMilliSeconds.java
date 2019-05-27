@@ -1,19 +1,21 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import honeycrisp.subsystems.HCDriveTrain;
 
-public class DistanceSensorStop extends Command {
+/*
+ * Move the robot forward for a specified number of milliseconds.
+ * Hints:
+ *  1. second equals 1000 milliseconds
+ *  2. Call System.currentTimeMillis() to get the number of milliseconds that have passed since 
+ *     January 1, 1970 12:00am GMT
+ * 
+*/
+public class MoveForMilliSeconds extends Command {
   private HCDriveTrain driveTrain;
 
-  public DistanceSensorStop(HCDriveTrain driveTrain) {
+
+  public MoveForMilliSeconds(HCDriveTrain driveTrain, int millis) {
     this.driveTrain = driveTrain;
     this.requires(driveTrain);
   }
@@ -37,13 +39,11 @@ public class DistanceSensorStop extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-  
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-
   }
 }

@@ -16,8 +16,9 @@ To run all the unit test cases:
 
 To run test cases in a specific class
 .\gradlew.bat test --tests frc.robot.commands.DistanceSensorStopTest
-.\bradlew.bat test --tests frc.robot.commands.MoveForMilliSecondsTest
-.\bradlew.bat test --tests frc.robot.commands.TurnCounterClockwiseTest
+.\gradlew.bat test --tests frc.robot.commands.MoveForMilliSecondsTest
+.\gradlew.bat test --tests frc.robot.commands.TurnCounterClockwiseTest
+.\gradlew.bat test --tests frc.robot.commands.SingleMotorMoveForwardTest
 
 These commands will display any errors in the terminal window. It will also create an easy to read report. The report can be found in the build folder under reports\tests\test. To see the report:
 1. Right mouse click on build\reports\tests\test\index.html in the IDE Explorer window and then select 'reval in explorer'.

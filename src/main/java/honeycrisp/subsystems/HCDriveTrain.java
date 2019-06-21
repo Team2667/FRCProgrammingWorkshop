@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
@@ -27,6 +28,10 @@ public abstract class HCDriveTrain extends HCSubsystem{
         SpeedControllerGroup rightSideControllerGroup = new SpeedControllerGroup(rightFront, rightRear);
         diffDrive = new DifferentialDrive(leftSideControllerGroup, rightSideControllerGroup);
     }
+
+    public void arcadeDrive(XboxController joy) {
+        diffDrive.arcadeDrive(joy.getX(), joy.getY());
+      }
 
 
     public HCDriveTrain(SpeedControllerGroup leftSide, SpeedControllerGroup rightSide){

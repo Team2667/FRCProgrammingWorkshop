@@ -11,18 +11,30 @@ import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 import honeycrisp.CommandButtons;
+import honeycrisp.JoystickCommand;
+import edu.wpi.first.wpilibj.XboxController;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI implements CommandButtons{
+  public XboxController xbox;
 
   private HashMap<String,Command> commands;
+
+  public OI(){
+    xbox = new XboxController(0);
+  }
 
   @Override
   public void addCommand(Command command, String commandName, int button){
 
+  }
+
+  @Override
+  public void addJoystickCommand(JoystickCommand command){
+    command.addJoystick(xbox);
   }
 
   @Override

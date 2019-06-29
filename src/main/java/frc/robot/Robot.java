@@ -140,8 +140,8 @@ public class Robot extends TimedRobot {
   }
 
   private HCSubsystem createDriveTrainSubsystem(){
-    DriveTrain driveTrain = new DriveTrainBuilder().addLfSpeedControler(1).addRfSpeedControler(2).
-      addLrSpeedControler(3).addRrSpeedControler(4).addDistanceSensor(3).addGyro().build();
+    DriveTrain driveTrain = new DriveTrainBuilder().addLfSpeedControler(1,false).addRfSpeedControler(2,false).
+      addLrSpeedControler(3,false).addRrSpeedControler(4,false).addDistanceSensor(3).addGyro().build();
     driveTrain.addCommands(m_oi);
     return driveTrain;
   }

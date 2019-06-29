@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.DriveTrainBuilder;
 import frc.robot.subsystems.GroupCommands;
@@ -142,7 +141,7 @@ public class Robot extends TimedRobot {
 
   private HCSubsystem createDriveTrainSubsystem(){
     DriveTrain driveTrain = new DriveTrainBuilder().addLfSpeedControler(1).addRfSpeedControler(2).
-      addLrSpeedControler(3).addRfSpeedControler(4).addDistanceSensor(3).addGyro().build();
+      addLrSpeedControler(3).addRrSpeedControler(4).addDistanceSensor(3).addGyro().build();
     driveTrain.addCommands(m_oi);
     return driveTrain;
   }

@@ -27,12 +27,12 @@ public abstract class HCDriveTrainBuilder<T extends HCDriveTrain> {
     }
 
     public HCDriveTrainBuilder<T> addLrSpeedControler(int canId){
-        rfTalon = new WPI_TalonSRX(canId);
+        lrTalon = new WPI_TalonSRX(canId);
         return this;
     }
     
     public HCDriveTrainBuilder<T> addRrSpeedControler(int canId){
-        rfTalon = new WPI_TalonSRX(canId);
+        rrTalon = new WPI_TalonSRX(canId);
         return this;
     }
 

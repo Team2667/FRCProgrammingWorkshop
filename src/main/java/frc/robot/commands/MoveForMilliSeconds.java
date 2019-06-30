@@ -11,7 +11,9 @@ import honeycrisp.subsystems.HCDriveTrain;
  *     January 1, 1970 12:00am GMT
  * 
 */
-public class MoveForMilliSeconds extends Command {
+public class MoveForMilliSeconds extends Command {driveTrain.moveForward(.2);
+
+}
   private HCDriveTrain driveTrain;
 
 

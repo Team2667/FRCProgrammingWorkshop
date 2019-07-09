@@ -40,7 +40,7 @@ public class TurnCounterClockwiseTest {
     @Test
     public void isFinishedWhenGyroReturnsGreaterThan45(){
         turn.initialize();
-        for (int i = 0; i != 4; ++i){
+        for (int i = 0; i != 3; ++i){
             turn.execute();
             assertFalse(turn.isFinished());
         }
@@ -58,7 +58,7 @@ public class TurnCounterClockwiseTest {
         driveTrain.setGyro(gyro);;
         TurnCounterClockwise turnCounter = new TurnCounterClockwise(driveTrain, 45.0);
         turnCounter.initialize();
-        for (int i = 0; i != 4; ++i){
+        for (int i = 0; i != 3; ++i){
             turnCounter.execute();
             assertFalse(turnCounter.isFinished());
         }

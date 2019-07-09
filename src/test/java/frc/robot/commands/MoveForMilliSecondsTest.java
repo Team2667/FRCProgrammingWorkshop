@@ -48,7 +48,7 @@ public class MoveForMilliSecondsTest {
         verify(leftSide,times(1)).set(anyDouble());
         verify(rightSide,times(1)).set(anyDouble());
         verify(leftSide,times(0)).stopMotor();
-        verify(leftSide,times(0)).stopMotor();
+        verify(rightSide,times(0)).stopMotor();
     }
 
     @Test

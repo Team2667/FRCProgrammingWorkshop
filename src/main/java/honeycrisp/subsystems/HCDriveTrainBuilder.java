@@ -16,23 +16,27 @@ public abstract class HCDriveTrainBuilder<T extends HCDriveTrain> {
     public HCDriveTrainBuilder(){
     }
 
-    public HCDriveTrainBuilder<T> addLfSpeedControler(int canId){
+    public HCDriveTrainBuilder<T> addLfSpeedControler(int canId, boolean isInverted){
         lfTalon = new WPI_TalonSRX(canId);
+        lfTalon.setInverted(isInverted);
         return this;
     }
 
-    public HCDriveTrainBuilder<T> addRfSpeedControler(int canId){
+    public HCDriveTrainBuilder<T> addRfSpeedControler(int canId, boolean isInverted){
         rfTalon = new WPI_TalonSRX(canId);
+        lfTalon.setInverted(isInverted);
         return this;
     }
 
-    public HCDriveTrainBuilder<T> addLrSpeedControler(int canId){
-        rfTalon = new WPI_TalonSRX(canId);
+    public HCDriveTrainBuilder<T> addLrSpeedControler(int canId, boolean isInverted){
+        lrTalon = new WPI_TalonSRX(canId);
+        lfTalon.setInverted(isInverted);
         return this;
     }
     
-    public HCDriveTrainBuilder<T> addRrSpeedControler(int canId){
-        rfTalon = new WPI_TalonSRX(canId);
+    public HCDriveTrainBuilder<T> addRrSpeedControler(int canId, boolean isInverted){
+        rrTalon = new WPI_TalonSRX(canId);
+        lfTalon.setInverted(isInverted);
         return this;
     }
 

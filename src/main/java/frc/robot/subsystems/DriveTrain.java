@@ -49,8 +49,8 @@ public class DriveTrain extends HCDriveTrain {
 
   @Override
   public void updateSmartDashboardValues() {
-    SmartDashboard.putNumber("Distance Sensor", getDistanceInInches());
-    SmartDashboard.putNumber("Gyro Angle", getAngle());
+//    SmartDashboard.putNumber("Distance Sensor", getDistanceInInches());
+//    SmartDashboard.putNumber("Gyro Angle", getAngle());
   }
 
 

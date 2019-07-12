@@ -52,6 +52,7 @@ public abstract class HCDriveTrainBuilder<T extends HCDriveTrain> {
 
     public T build(){
         T dt = newDriveTrain(lfTalon,rfTalon,lrTalon,rrTalon);
+        
         dt.setDistanceSensor(distanceSensor);
         return dt;
     }

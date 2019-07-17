@@ -26,6 +26,7 @@ public abstract class HCDriveTrain extends HCSubsystem{
     public HCDriveTrain(WPI_TalonSRX leftFront,  WPI_TalonSRX rightFront,  WPI_TalonSRX leftRear,  WPI_TalonSRX rightRear){
         SpeedControllerGroup leftSideControllerGroup = new SpeedControllerGroup(leftFront, leftRear);
         SpeedControllerGroup rightSideControllerGroup = new SpeedControllerGroup(rightFront, rightRear);
+        leftSideControllerGroup.setInverted(true);
         diffDrive = new DifferentialDrive(leftSideControllerGroup, rightSideControllerGroup);
     }
 

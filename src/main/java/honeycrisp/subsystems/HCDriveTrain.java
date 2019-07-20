@@ -19,36 +19,44 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * Add your docs here.
  */
 public abstract class HCDriveTrain extends HCSubsystem{
+    private SpeedControllerGroup leftSideControllerGroup;
+    private SpeedControllerGroup rightSideControllerGroup;
     private DifferentialDrive diffDrive;
     private AnalogInput distanceSensor;
     private ADXRS450_Gyro gyro;
 
     public HCDriveTrain(WPI_TalonSRX leftFront,  WPI_TalonSRX rightFront,  WPI_TalonSRX leftRear,  WPI_TalonSRX rightRear){
-        SpeedControllerGroup leftSideControllerGroup = new SpeedControllerGroup(leftFront, leftRear);
-        SpeedControllerGroup rightSideControllerGroup = new SpeedControllerGroup(rightFront, rightRear);
-        leftSideControllerGroup.setInverted(true);
+        leftSideControllerGroup = new SpeedControllerGroup(leftFront, leftRear);
+        rightSideControllerGroup = new SpeedControllerGroup(rightFront, rightRear);
         diffDrive = new DifferentialDrive(leftSideControllerGroup, rightSideControllerGroup);
     }
 
     public void arcadeDrive(XboxController joy) {
         diffDrive.arcadeDrive(joy.getX(), joy.getY());
-      }
+    }
 
+    public void invertLeft(){
+        leftSideControllerGroup.setInverted(true);
+    }
+
+    public void invertRight(){
+        rightSideControllerGroup.setInverted(true);
+    }
 
     public HCDriveTrain(SpeedControllerGroup leftSide, SpeedControllerGroup rightSide){
         diffDrive = new DifferentialDrive(leftSide, rightSide);
     }
 
     public void moveForward(double power){
-       diffDrive.tankDrive(power, power);
+       diffDrive.arcadeDrive(power, 0);
     }
 
     public void turnCounterClockwise(double power){
-        diffDrive.tankDrive(0,power);
+        diffDrive.arcadeDrive(power, -1 * power);
     }
 
     public void turnClockwise(double power){
-        diffDrive.tankDrive(power,0);
+        diffDrive.arcadeDrive(power,power);
     }
 
     public void stop(){

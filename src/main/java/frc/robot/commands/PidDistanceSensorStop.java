@@ -48,8 +48,6 @@ public class PidDistanceSensorStop extends Command implements PIDOutput{
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    driveTrain.stop();
-    distanceController.disable();
   }
 
   // Called when another command which requires one or more of the same

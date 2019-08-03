@@ -22,7 +22,6 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -34,9 +33,9 @@ import static org.junit.Assert.*;
  * Add your docs here.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class PidGyroTurnCounterTest {
+public class PidDistanceSensorStopTest {
     private DriveTrain dt;
-    private PidGyroTurnCounter cmd;
+    private PidDistanceSensorStop dss;
     private MockInputSource inSource;
 
     @Mock
@@ -48,9 +47,6 @@ public class PidGyroTurnCounterTest {
     @Mock
     private AnalogInput dSensor;
 
-    @Mock
-    private ADXRS450_Gyro gyro;
-
     @Before
     public void setUp(){
         Answer<Double> answer = new Answer<>() {
@@ -59,43 +55,29 @@ public class PidGyroTurnCounterTest {
             }
         };
 
-         inSource = new MockInputSource(
-            0.01, -0.9, -1.16, -4.0, -8.0, -16.0, -20.0, -25.0, -25.0, -25.0
+         inSource = new MockInputSource(AnalogValueConverter::inchesToVoltage,
+            40.0, 40.0, 40.0, 40.0,
+        39.6, 39.1, 38.5, 38.0, 37.0, 35.0, 32.0, 29.0, 26.9,
+        25.4, 20.3
         );
 
-        when (gyro.pidGet()).thenAnswer(answer);   
-        when (gyro.getPIDSourceType()).thenReturn(PIDSourceType.kDisplacement);  
+        when (dSensor.pidGet()).thenAnswer(answer);   
+        when (dSensor.getPIDSourceType()).thenReturn(PIDSourceType.kDisplacement);  
         dt = new DriveTrain(leftSide, rightSide);
-        dt.setGyro(gyro);   
-        cmd = new PidGyroTurnCounter(dt, -25.0);
+        dt.setDistanceSensor(dSensor);   
+        dss = new PidDistanceSensorStop(dt, 20);
     }
 
     @After
     public void tearDown(){
-        cmd.end();
+        dss.end();
     }
 
     @Test
-    public void isFinishedReturnsTrueWhenTargetMet(){
-        cmd.initialize();
+    public void isPidControllerEnabled(){
+        dss.initialize();
         pauseMillis(1000);
         assertTrue(inSource.isStarted());
-        assertTrue(cmd.isFinished());
-    }
-
-    @Test
-    public void isFinishedReturnsFalseWhenTargetNotMet(){
-        cmd.initialize();
-        assertFalse(cmd.isFinished());
-        pauseMillis(1000);
-    }
-
-    @Test
-    public void pidControllerDisabledWhenInterruptedCalled(){
-        cmd.initialize();
-        cmd.interrupted();
-        pauseMillis(1000);
-        assertFalse(inSource.isDone());
     }
 
     private void pauseMillis(int millis){

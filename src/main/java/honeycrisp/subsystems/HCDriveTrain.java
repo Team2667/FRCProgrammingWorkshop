@@ -10,6 +10,8 @@ package honeycrisp.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
@@ -73,6 +75,30 @@ public abstract class HCDriveTrain extends HCSubsystem{
     public void setDistanceSensor(AnalogInput distanceSensor){
         System.out.println("setDistanceSensor is getting called " + distanceSensor);
         this.distanceSensor = distanceSensor;
+    }
+
+    public PIDController getDistancePIDController(double setPoint, PIDOutput output){
+        PidControllerBuilder builder = new PidControllerBuilder(distanceSensor, AnalogValueConverter::inchesToVoltage);
+        builder.withSetPoint(setPoint);
+        builder.withPIDOutput(output);
+        builder.withInputRange(0.0, 1.0);
+        builder.withOutputRange(-1.0, 1.0);
+
+        return builder.createPidController();
+    }
+
+    public void resetGyro(){
+        gyro.reset();
+    }
+
+    public PIDController getGyroPIDController(double setPoint, PIDOutput output){
+        PidControllerBuilder builder = new PidControllerBuilder(gyro);
+        builder.withSetPoint(setPoint);
+        builder.withPIDOutput(output);
+        builder.withInputRange(-360.0, 360.0);
+        builder.withOutputRange(-1.0, 1.0);
+
+        return builder.createPidController();
     }
 
     public void setGyro(ADXRS450_Gyro gyro){

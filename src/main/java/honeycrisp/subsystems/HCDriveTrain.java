@@ -62,6 +62,10 @@ public abstract class HCDriveTrain extends HCSubsystem{
         diffDrive.arcadeDrive(power,power);
     }
 
+    public void turn(double power){
+        diffDrive.arcadeDrive(Math.abs(power), power);
+    }
+
     public void stop(){
         diffDrive.stopMotor();
     }

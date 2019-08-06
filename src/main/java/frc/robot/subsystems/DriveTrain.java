@@ -13,6 +13,7 @@ import frc.robot.commands.DistanceSensorStop;
 import frc.robot.commands.MoveForMilliSeconds;
 import frc.robot.commands.TurnCounterClockwise;
 import frc.robot.commands.Drive;
+import frc.robot.commands.ExerciseGroupCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import honeycrisp.CommandButtons;
 import honeycrisp.subsystems.HCDriveTrain;
@@ -45,6 +46,8 @@ public class DriveTrain extends HCDriveTrain {
     SmartDashboard.putData("Move for Milli Seconds", moveForTime);
     Drive drive = new Drive(this);
     gameController.addJoystickCommand(drive);
+    ExerciseGroupCommand moveTurn = new ExerciseGroupCommand(moveForTime, turnCounter);
+    gameController.addButtonPress(GroupCommand moveTurn, 2);
   }
 
   @Override

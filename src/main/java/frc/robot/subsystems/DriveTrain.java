@@ -27,6 +27,7 @@ public class DriveTrain extends HCDriveTrain {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   XboxController joy;
+  private Drive defaultCommand;
 
   public DriveTrain(WPI_TalonSRX leftFront,  WPI_TalonSRX rightFront,  WPI_TalonSRX leftRear,  WPI_TalonSRX rightRear){
     super(leftFront, rightFront, leftRear, rightRear);
@@ -59,8 +60,6 @@ public class DriveTrain extends HCDriveTrain {
 
   @Override
   public void initDefaultCommand() {
-
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(defaultCommand);
   }
 }

@@ -12,31 +12,29 @@ public abstract class HCDriveTrainBuilder<T extends HCDriveTrain> {
     private WPI_TalonSRX rrTalon;
     private AnalogInput distanceSensor;
     private ADXRS450_Gyro gyro;
+    private boolean isLeftInverted = false;
+    private boolean isRightInverted = false;
 
     public HCDriveTrainBuilder(){
     }
 
-    public HCDriveTrainBuilder<T> addLfSpeedControler(int canId, boolean isInverted){
+    public HCDriveTrainBuilder<T> addLfSpeedControler(int canId){
         lfTalon = new WPI_TalonSRX(canId);
-        lfTalon.setInverted(isInverted);
         return this;
     }
 
-    public HCDriveTrainBuilder<T> addRfSpeedControler(int canId, boolean isInverted){
+    public HCDriveTrainBuilder<T> addRfSpeedControler(int canId){
         rfTalon = new WPI_TalonSRX(canId);
-        lfTalon.setInverted(isInverted);
         return this;
     }
 
-    public HCDriveTrainBuilder<T> addLrSpeedControler(int canId, boolean isInverted){
+    public HCDriveTrainBuilder<T> addLrSpeedControler(int canId){
         lrTalon = new WPI_TalonSRX(canId);
-        lfTalon.setInverted(isInverted);
         return this;
     }
     
-    public HCDriveTrainBuilder<T> addRrSpeedControler(int canId, boolean isInverted){
+    public HCDriveTrainBuilder<T> addRrSpeedControler(int canId){
         rrTalon = new WPI_TalonSRX(canId);
-        lfTalon.setInverted(isInverted);
         return this;
     }
 
@@ -50,9 +48,27 @@ public abstract class HCDriveTrainBuilder<T extends HCDriveTrain> {
         return this;
     }
 
+    public HCDriveTrainBuilder<T> invertLeft(){
+        isLeftInverted = true;
+        return this;
+    }
+
+    public HCDriveTrainBuilder<T> invertRight(){
+        isRightInverted = true;
+        return this;
+    }
+
     public T build(){
         T dt = newDriveTrain(lfTalon,rfTalon,lrTalon,rrTalon);
+        
         dt.setDistanceSensor(distanceSensor);
+        dt.setGyro(gyro);
+        if (isRightInverted){
+            dt.invertRight();
+        }
+        if (isLeftInverted){
+            dt.invertLeft();
+        }
         return dt;
     }
 

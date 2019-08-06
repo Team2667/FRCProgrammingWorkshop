@@ -13,10 +13,12 @@ import honeycrisp.subsystems.HCDriveTrain;
 */
 public class MoveForMilliSeconds extends Command {
   private HCDriveTrain driveTrain;
-  private long millis;
+  private long duration;
+  private long endingTime;
 
-  public MoveForMilliSeconds(HCDriveTrain driveTrain, int millis) {
+  public MoveForMilliSeconds(HCDriveTrain driveTrain, int duration) {
     this.driveTrain = driveTrain;
+    this.duration = duration;
     System.currentTimeMillis();
     this.requires(driveTrain);
 
@@ -26,23 +28,21 @@ public class MoveForMilliSeconds extends Command {
   @Override
   protected void initialize() {
  
-    millis = System.currentTimeMillis();
-    driveTrain.moveForward(1);
+    endingTime = System.currentTimeMillis() + duration;
+    driveTrain.moveForward(.5);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    driveTrain.moveForward(1);
-    System.out.println(millis);
+    driveTrain.moveForward(.5);
    }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     long time = System.currentTimeMillis();
-    System.out.println(time);
-    if(time >= millis + 100){
+    if(time >= endingTime){
       return true;
     }
     return false;

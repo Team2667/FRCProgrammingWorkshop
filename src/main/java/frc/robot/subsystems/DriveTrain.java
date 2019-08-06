@@ -47,7 +47,7 @@ public class DriveTrain extends HCDriveTrain {
     Drive drive = new Drive(this);
     gameController.addJoystickCommand(drive);
     ExerciseGroupCommand moveTurn = new ExerciseGroupCommand(moveForTime, turnCounter);
-    gameController.addButtonPress(GroupCommand moveTurn, 2);
+    gameController.addButtonPress(moveTurn, 2);
   }
 
   @Override

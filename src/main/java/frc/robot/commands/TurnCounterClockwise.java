@@ -10,6 +10,7 @@ public class TurnCounterClockwise extends Command{
   public TurnCounterClockwise(HCDriveTrain driveTrain, double angle) {
     this.driveTrain = driveTrain;
     this.requires(driveTrain);
+
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -17,30 +18,34 @@ public class TurnCounterClockwise extends Command{
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-  
+    // With the driveTrain.turn() method, negitive speed will turn counter clockwise. Positive will turn clockwise.
+    // Be sure to reset the gyro before starting the turn.
   }
 
   // Called repeatedly when this Command is scheduled to run
+  // Execute should continue the turn.
   @Override
   protected void execute() {
-    
   }
 
   // Make this return true when this Command no longer needs to run execute()
+  // driveTrain.getAngle() will return the current angle. If the robot is a few degrees 
+  // counter closkwise from where it started, driveTrain.getAngle() will be negitive.
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
+  // In this case, end() should stop the driveTrain.
   @Override
   protected void end() {
   }
 
   // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
+  // subsystems is scheduled to run or the emergency stop is hit.
+  // 
   @Override
   protected void interrupted() {
-   
   }
 }

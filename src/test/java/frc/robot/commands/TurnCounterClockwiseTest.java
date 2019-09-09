@@ -21,19 +21,21 @@ public class TurnCounterClockwiseTest {
     private TurnCounterClockwise turn;
     private SpeedControllerGroup leftSide;
     private SpeedControllerGroup rightSide;
+    private  ADXRS450_Gyro gyro;
     
     @Test
     public void initializeStartsTheRobotTurning(){
         turn.initialize();
-        verify(leftSide,times(1)).set(0);
+        verify(leftSide,times(1)).set(anyDouble());
         verify(rightSide,times(1)).set(anyDouble());
+        verify(gyro,times(1)).reset();
     }
 
     @Test
     public void executeAdjustsTheRobot(){
         turn.initialize();
         turn.execute();
-        verify(leftSide,times(2)).set(0);
+        verify(leftSide,times(2)).set(anyDouble());
         verify(rightSide,times(2)).set(anyDouble());
     }
 
@@ -45,25 +47,6 @@ public class TurnCounterClockwiseTest {
             assertFalse(turn.isFinished());
         }
         assertTrue(turn.isFinished());
-    }
-
-    @Test
-    public void isFinishedHandlesGT360(){
-        SpeedControllerGroup ls = mock(SpeedControllerGroup.class);
-        SpeedControllerGroup rs = mock(SpeedControllerGroup.class);
-        ADXRS450_Gyro gyro = mock(ADXRS450_Gyro.class);
-        when (gyro.getAngle()).thenReturn(-360.0).thenReturn(-380.999).thenReturn(-390.0).thenReturn(-400.0).thenReturn(-408.0);
-        
-        DriveTrain driveTrain = new DriveTrain(ls, rs);
-        driveTrain.setGyro(gyro);;
-        TurnCounterClockwise turnCounter = new TurnCounterClockwise(driveTrain, 45.0);
-        turnCounter.initialize();
-        for (int i = 0; i != 4; ++i){
-            turnCounter.execute();
-            assertFalse(turnCounter.isFinished());
-        }
-        turnCounter.close();
-        assertTrue(turnCounter.isFinished());
     }
 
     @Test
@@ -87,7 +70,7 @@ public class TurnCounterClockwiseTest {
     public void setUp(){
         leftSide = mock(SpeedControllerGroup.class);
         rightSide = mock(SpeedControllerGroup.class);
-        ADXRS450_Gyro gyro = mock(ADXRS450_Gyro.class);
+        gyro = mock(ADXRS450_Gyro.class);
         when (gyro.getAngle()).thenReturn(0.0).thenReturn(-20.999).thenReturn(-30.0).thenReturn(-40.0).thenReturn(-48.0);
         dt = new DriveTrain(leftSide, rightSide);
         dt.setGyro(gyro);

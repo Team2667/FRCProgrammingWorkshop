@@ -54,14 +54,6 @@ public abstract class HCDriveTrain extends HCSubsystem{
        diffDrive.arcadeDrive(0, -1 * power);
     }
 
-    public void turnCounterClockwise(double power){
-        diffDrive.arcadeDrive(power, -1 * power);
-    }
-
-    public void turnClockwise(double power){
-        diffDrive.arcadeDrive(power,power);
-    }
-
     public void turn(double power){
         diffDrive.arcadeDrive(power, 0);
     }

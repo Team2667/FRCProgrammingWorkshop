@@ -18,6 +18,9 @@ public class TurnCounterClockwise extends Command{
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+  driveTrain.resetGyro();  
+    driveTrain.turn(-.5);
+
     // With the driveTrain.turn() method, negitive speed will turn counter clockwise. Positive will turn clockwise.
     // Be sure to reset the gyro before starting the turn.
   }
@@ -25,7 +28,7 @@ public class TurnCounterClockwise extends Command{
   // Called repeatedly when this Command is scheduled to run
   // Execute should continue the turn.
   @Override
-  protected void execute() {
+  protected void execute() {driveTrain.turn(-5);
   }
 
   // Make this return true when this Command no longer needs to run execute()
